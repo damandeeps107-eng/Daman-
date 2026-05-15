@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Himalaya Public School | Student Portal</title>
+    <style>
+        /* CSS Reset & Variables */
+        :root {
+            --primary-color: #0b3d91; /* Academic Blue */
+            --secondary-color: #f2a900; /* Gold */
+            --bg-color: #f4f7f6;
+            --text-color: #333;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        /* Header & Navigation */
+        header {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            letter-spacing: 1px;
+        }
+
+        .logo span {
+            color: var(--secondary-color);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+
+        nav ul li a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: var(--secondary-color);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(11, 61, 145, 0.8), rgba(11, 61, 145, 0.8)), url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1600&q=80') center/cover;
+            color: var(--white);
+            text-align: center;
+            padding: 4rem 2rem;
+        }
+
+        .hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+
+        /* Main Content Grid */
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 2rem auto;
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 2rem;
+        }
+
+        .section-title {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 5px;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Notice Board */
+        .notice-board {
+            background: var(--white);
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            height: fit-content;
+        }
+
+        .notice-list {
+            list-style: none;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .notice-item {
+            padding: 1rem 0;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .notice-item:last-child {
+            border-bottom: none;
+        }
+
+        .notice-date {
+            font-size: 0.85rem;
+            color: #777;
+            font-weight: bold;
+        }
+
+        .notice-item a {
+            text-decoration: none;
+            color: var(--primary-color);
+            font-weight: 600;
+            display: block;
+            margin-top: 5px;
+        }
+
+        .notice-item a:hover {
+            text-decoration: underline;
+        }
+
+        /* Homework Section */
+        .homework-portal {
+            background: var(--white);
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .filter-controls {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 1.5rem;
+        }
+
+        .filter-controls select {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: var(--primary-color);
+            color: var(--white);
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .status-badge {
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .status-new { background-color: #d4edda; color: #155724; }
+        .status-due { background-color: #f8d7da; color: #721c24; }
+
+        /* Footer */
+        footer {
+            background-color: #222;
+            color: var(--white);
+            text-align: center;
+            padding: 1.5rem 0;
+            margin-top: 2rem;
+        }
+
+        /* Responsive Design */
+        @media(max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+            nav ul {
+                display: none; /* In a real app, replace with a hamburger menu */
+            }
+            header {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <h1>Himalaya <span>Public School</span></h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#notices">Notice Board</a></li>
+                <li><a href="#homework">Homework Portal</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero" id="home">
+        <h2>Welcome to the Student Portal</h2>
+        <p>Empowering minds, shaping the future. Stay updated with your daily tasks and announcements.</p>
+    </section>
+
+    <div class="container">
+        
+        <!-- Notice Board Section -->
+        <aside class="notice-board" id="notices">
+            <h3 class="section-title">📌 Important Notices</h3>
+            <ul class="notice-list">
+                <li class="notice-item">
+                    <span class="notice-date">May 15, 2026</span>
+                    <a href="#">Upcoming Parent-Teacher Meeting Schedule</a>
+                    <p style="font-size: 0.9rem; margin-top: 5px;">PTM for classes VI to X is scheduled for the upcoming Saturday.</p>
+                </li>
+                <li class="notice-item">
+                    <span class="notice-date">May 12, 2026</span>
+                    <a href="#">Annual Sports Day Registration Open</a>
+                    <p style="font-size: 0.9rem; margin-top: 5px;">Students interested in participating can register with their class teachers.</p>
+                </li>
+                <li class="notice-item">
+                    <span class="notice-date">May 10, 2026</span>
+                    <a href="#">Change in School Timings for Summer</a>
+                    <p style="font-size: 0.9rem; margin-top: 5px;">School will now start at 7:30 AM instead of 8:00 AM.</p>
+                </li>
+            </ul>
+        </aside>
+
+        <!-- Homework Portal Section -->
+        <main class="homework-portal" id="homework">
+            <h3 class="section-title">📚 Daily Homework</h3>
+            
+            <div class="filter-controls">
+                <select id="class-filter">
+                    <option value="all">Select Class</option>
+                    <option value="9">Class 9</option>
+                    <option value="10">Class 10</option>
+                    <option value="11">Class 11</option>
+                    <option value="12">Class 12</option>
+                </select>
+                <select id="date-filter">
+                    <option value="today">Today</option>
+                    <option value="yesterday">Yesterday</option>
+                </select>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Subject</th>
+                        <th>Class</th>
+                        <th>Homework Details</th>
+                        <th>Submission Date</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Mathematics</strong></td>
+                        <td>Class 10</td>
+                        <td>Complete Exercise 4.2 (Quadratic Equations), Q1 to Q5.</td>
+                        <td>May 16, 2026</td>
+                        <td><span class="status-badge status-new">Assigned Today</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Science</strong></td>
+                        <td>Class 10</td>
+                        <td>Draw and label the human digestive system. Write a brief note on enzymes.</td>
+                        <td>May 17, 2026</td>
+                        <td><span class="status-badge status-new">Assigned Today</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>English</strong></td>
+                        <td>Class 9</td>
+                        <td>Write an essay on "The Importance of Discipline in Student Life" (200 words).</td>
+                        <td>May 16, 2026</td>
+                        <td><span class="status-badge status-due">Due Tomorrow</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Social Science</strong></td>
+                        <td>Class 11</td>
+                        <td>Read Chapter 3 of History and answer the short questions at the back.</td>
+                        <td>May 18, 2026</td>
+                        <td><span class="status-badge status-new">Assigned Today</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </main>
+
+    </div>
+
+    <footer id="contact">
+        <p>&copy; 2026 Himalaya Public School. All Rights Reserved.</p>
+        <p>Email: info@himalayapublicschool.edu | Phone: +91 98765 43210</p>
+    </footer>
+
+</body>
+</html>
