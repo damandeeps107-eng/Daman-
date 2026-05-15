@@ -3,334 +3,1016 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Himalaya Public School | Student Portal</title>
+    <title>Himalaya Public School | Homework & Notice Portal</title>
     <style>
-        /* CSS Reset & Variables */
         :root {
-            --primary-color: #0b3d91; /* Academic Blue */
-            --secondary-color: #f2a900; /* Gold */
-            --bg-color: #f4f7f6;
-            --text-color: #333;
-            --white: #ffffff;
+            --midnight: #071a3d;
+            --royal: #174ea6;
+            --sky: #4aa3ff;
+            --gold: #f7c948;
+            --mint: #2dd4bf;
+            --rose: #fb7185;
+            --ink: #172033;
+            --muted: #64748b;
+            --paper: #ffffff;
+            --soft: #f5f8ff;
+            --line: rgba(23, 32, 51, 0.12);
+            --shadow: 0 24px 70px rgba(7, 26, 61, 0.18);
+            --radius-xl: 30px;
+            --radius-lg: 22px;
+            --radius-md: 16px;
         }
 
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
+            min-height: 100vh;
+            color: var(--ink);
+            font-family: Inter, "Segoe UI", Arial, sans-serif;
+            background:
+                radial-gradient(circle at top left, rgba(74, 163, 255, 0.22), transparent 34rem),
+                linear-gradient(180deg, #eef5ff 0%, #ffffff 48%, #f6f8fc 100%);
             line-height: 1.6;
         }
 
-        /* Header & Navigation */
-        header {
-            background-color: var(--primary-color);
-            color: var(--white);
-            padding: 1rem 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .site-shell {
+            overflow: hidden;
+        }
+
+        .topbar {
             position: sticky;
             top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        }
-
-        .logo h1 {
-            font-size: 1.8rem;
-            letter-spacing: 1px;
-        }
-
-        .logo span {
-            color: var(--secondary-color);
-        }
-
-        nav ul {
-            list-style: none;
+            z-index: 10;
             display: flex;
-            gap: 20px;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1.5rem;
+            padding: 1rem clamp(1rem, 4vw, 4.5rem);
+            color: #fff;
+            background: rgba(7, 26, 61, 0.88);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(18px);
         }
 
-        nav ul li a {
-            color: var(--white);
-            text-decoration: none;
-            font-weight: 600;
-            transition: color 0.3s;
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
         }
 
-        nav ul li a:hover {
-            color: var(--secondary-color);
+        .brand-mark {
+            display: grid;
+            width: 52px;
+            height: 52px;
+            place-items: center;
+            color: var(--midnight);
+            font-size: 1.55rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #fff, var(--gold));
+            border-radius: 18px;
+            box-shadow: 0 12px 30px rgba(247, 201, 72, 0.35);
         }
 
-        /* Hero Section */
+        .brand h1 {
+            font-size: clamp(1.05rem, 2.3vw, 1.55rem);
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+        }
+
+        .brand p {
+            color: #bfd7ff;
+            font-size: 0.78rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            display: inline-flex;
+            padding: 0.72rem 1rem;
+            color: rgba(255, 255, 255, 0.86);
+            font-weight: 700;
+            border-radius: 999px;
+            transition: 0.25s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a:focus-visible {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.12);
+            outline: none;
+        }
+
         .hero {
-            background: linear-gradient(rgba(11, 61, 145, 0.8), rgba(11, 61, 145, 0.8)), url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1600&q=80') center/cover;
-            color: var(--white);
-            text-align: center;
-            padding: 4rem 2rem;
+            position: relative;
+            display: grid;
+            grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.95fr);
+            gap: clamp(2rem, 5vw, 5rem);
+            align-items: center;
+            padding: clamp(3rem, 8vw, 7rem) clamp(1rem, 5vw, 5rem) clamp(2rem, 6vw, 5rem);
+            color: #fff;
+            background:
+                linear-gradient(135deg, rgba(7, 26, 61, 0.96), rgba(23, 78, 166, 0.88)),
+                url("https://images.unsplash.com/photo-1588072432836-e10032774350?auto=format&fit=crop&w=1800&q=80") center/cover;
+            isolation: isolate;
+        }
+
+        .hero::before,
+        .hero::after {
+            position: absolute;
+            content: "";
+            z-index: -1;
+            border-radius: 50%;
+            filter: blur(8px);
+        }
+
+        .hero::before {
+            right: -10rem;
+            top: 5rem;
+            width: 25rem;
+            height: 25rem;
+            background: rgba(247, 201, 72, 0.22);
+        }
+
+        .hero::after {
+            bottom: -9rem;
+            left: 18%;
+            width: 18rem;
+            height: 18rem;
+            background: rgba(45, 212, 191, 0.22);
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            padding: 0.45rem 0.8rem;
+            margin-bottom: 1.15rem;
+            color: #f8fbff;
+            font-size: 0.82rem;
+            font-weight: 800;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 999px;
         }
 
         .hero h2 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
+            max-width: 820px;
+            font-size: clamp(2.6rem, 6.6vw, 5.9rem);
+            line-height: 0.94;
+            letter-spacing: -0.075em;
         }
 
-        .hero p {
-            font-size: 1.2rem;
-            margin-bottom: 20px;
+        .hero h2 span {
+            color: var(--gold);
         }
 
-        /* Main Content Grid */
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 2rem auto;
+        .hero-copy {
+            max-width: 680px;
+            margin: 1.35rem 0 1.8rem;
+            color: #dbeafe;
+            font-size: clamp(1rem, 2vw, 1.25rem);
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            min-height: 52px;
+            padding: 0.85rem 1.2rem;
+            font-weight: 900;
+            border-radius: 999px;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .button:hover {
+            transform: translateY(-2px);
+        }
+
+        .button-primary {
+            color: var(--midnight);
+            background: linear-gradient(135deg, #fff8d7, var(--gold));
+            box-shadow: 0 16px 34px rgba(247, 201, 72, 0.32);
+        }
+
+        .button-secondary {
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .hero-card {
+            padding: 1.2rem;
+            background: rgba(255, 255, 255, 0.13);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(18px);
+        }
+
+        .spotlight-card {
+            overflow: hidden;
+            color: var(--ink);
+            background: var(--paper);
+            border-radius: 26px;
+        }
+
+        .spotlight-top {
+            padding: 1.4rem;
+            background: linear-gradient(135deg, #eaf4ff, #fff7d9);
+        }
+
+        .spotlight-top p {
+            color: var(--muted);
+            font-weight: 700;
+        }
+
+        .spotlight-card h3 {
+            margin-top: 0.3rem;
+            color: var(--midnight);
+            font-size: 1.6rem;
+            line-height: 1.15;
+        }
+
+        .spotlight-list {
             display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 2rem;
+            gap: 0.85rem;
+            padding: 1.2rem;
         }
 
-        .section-title {
-            color: var(--primary-color);
-            border-bottom: 2px solid var(--secondary-color);
-            padding-bottom: 5px;
+        .spotlight-item {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 0.8rem;
+            align-items: start;
+            padding: 0.95rem;
+            background: var(--soft);
+            border: 1px solid var(--line);
+            border-radius: 18px;
+        }
+
+        .icon-bubble {
+            display: grid;
+            width: 42px;
+            height: 42px;
+            place-items: center;
+            background: #fff;
+            border-radius: 14px;
+            box-shadow: 0 12px 28px rgba(7, 26, 61, 0.08);
+        }
+
+        .section {
+            padding: clamp(2.3rem, 6vw, 5rem) clamp(1rem, 5vw, 5rem);
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 1rem;
+            margin-top: -3.2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .stat-card {
+            padding: 1.3rem;
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            border-radius: var(--radius-lg);
+            box-shadow: 0 18px 50px rgba(23, 32, 51, 0.1);
+            backdrop-filter: blur(12px);
+        }
+
+        .stat-card strong {
+            display: block;
+            color: var(--royal);
+            font-size: clamp(1.5rem, 3vw, 2.25rem);
+            line-height: 1;
+        }
+
+        .stat-card span {
+            color: var(--muted);
+            font-weight: 800;
+        }
+
+        .section-heading {
+            display: flex;
+            align-items: end;
+            justify-content: space-between;
+            gap: 1.5rem;
             margin-bottom: 1.5rem;
         }
 
-        /* Notice Board */
+        .section-heading h2 {
+            color: var(--midnight);
+            font-size: clamp(2rem, 4vw, 3.2rem);
+            line-height: 1;
+            letter-spacing: -0.055em;
+        }
+
+        .section-heading p {
+            max-width: 560px;
+            color: var(--muted);
+            font-weight: 650;
+        }
+
+        .portal-grid {
+            display: grid;
+            grid-template-columns: minmax(280px, 0.82fr) minmax(0, 1.38fr);
+            gap: 1.4rem;
+        }
+
+        .panel {
+            background: rgba(255, 255, 255, 0.92);
+            border: 1px solid rgba(23, 32, 51, 0.08);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow);
+        }
+
         .notice-board {
-            background: var(--white);
-            padding: 1.5rem;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            height: fit-content;
+            padding: 1.35rem;
+        }
+
+        .panel-title {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .panel-title h3 {
+            color: var(--midnight);
+            font-size: 1.35rem;
+        }
+
+        .live-pill {
+            padding: 0.35rem 0.7rem;
+            color: #064e3b;
+            font-size: 0.75rem;
+            font-weight: 900;
+            background: #ccfbf1;
+            border-radius: 999px;
         }
 
         .notice-list {
+            display: grid;
+            gap: 0.9rem;
             list-style: none;
-            max-height: 400px;
-            overflow-y: auto;
         }
 
         .notice-item {
-            padding: 1rem 0;
-            border-bottom: 1px solid #ddd;
+            position: relative;
+            padding: 1rem 1rem 1rem 1.1rem;
+            background: linear-gradient(180deg, #fff, #f7fbff);
+            border: 1px solid var(--line);
+            border-radius: 18px;
         }
 
-        .notice-item:last-child {
-            border-bottom: none;
+        .notice-item::before {
+            position: absolute;
+            top: 1rem;
+            bottom: 1rem;
+            left: 0;
+            width: 4px;
+            content: "";
+            background: linear-gradient(var(--gold), var(--sky));
+            border-radius: 999px;
         }
 
         .notice-date {
-            font-size: 0.85rem;
-            color: #777;
-            font-weight: bold;
+            color: var(--royal);
+            font-size: 0.8rem;
+            font-weight: 900;
         }
 
-        .notice-item a {
-            text-decoration: none;
-            color: var(--primary-color);
-            font-weight: 600;
-            display: block;
-            margin-top: 5px;
-        }
-
-        .notice-item a:hover {
-            text-decoration: underline;
-        }
-
-        /* Homework Section */
-        .homework-portal {
-            background: var(--white);
-            padding: 1.5rem;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
-
-        .filter-controls {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 1.5rem;
-        }
-
-        .filter-controls select {
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
+        .notice-item h4 {
+            margin: 0.2rem 0;
+            color: var(--midnight);
             font-size: 1rem;
         }
 
-        table {
+        .notice-item p {
+            color: var(--muted);
+            font-size: 0.92rem;
+        }
+
+        .homework-panel {
+            padding: 1.35rem;
+        }
+
+        .filter-controls {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 0.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .field label {
+            display: block;
+            margin-bottom: 0.35rem;
+            color: var(--muted);
+            font-size: 0.78rem;
+            font-weight: 900;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+
+        select,
+        input {
             width: 100%;
-            border-collapse: collapse;
+            min-height: 48px;
+            padding: 0 0.9rem;
+            color: var(--ink);
+            font: inherit;
+            font-weight: 750;
+            background: #fff;
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            outline: none;
         }
 
-        th, td {
-            padding: 12px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
+        select:focus,
+        input:focus {
+            border-color: rgba(23, 78, 166, 0.55);
+            box-shadow: 0 0 0 4px rgba(74, 163, 255, 0.13);
         }
 
-        th {
-            background-color: var(--primary-color);
-            color: var(--white);
+        .homework-list {
+            display: grid;
+            gap: 0.95rem;
         }
 
-        tr:hover {
-            background-color: #f1f1f1;
+        .homework-card {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: 1rem;
+            align-items: center;
+            padding: 1rem;
+            background: #fff;
+            border: 1px solid var(--line);
+            border-radius: 20px;
+            transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+        }
+
+        .homework-card:hover {
+            transform: translateY(-3px);
+            border-color: rgba(23, 78, 166, 0.28);
+            box-shadow: 0 18px 42px rgba(23, 32, 51, 0.1);
+        }
+
+        .subject-icon {
+            display: grid;
+            width: 58px;
+            height: 58px;
+            place-items: center;
+            font-size: 1.45rem;
+            background: linear-gradient(135deg, #eef6ff, #fff5c8);
+            border-radius: 18px;
+        }
+
+        .homework-card h4 {
+            color: var(--midnight);
+            font-size: 1.1rem;
+        }
+
+        .meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.45rem;
+            margin: 0.45rem 0;
+        }
+
+        .chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            padding: 0.28rem 0.58rem;
+            color: var(--muted);
+            font-size: 0.78rem;
+            font-weight: 900;
+            background: #f1f5f9;
+            border-radius: 999px;
+        }
+
+        .homework-card p {
+            color: var(--muted);
         }
 
         .status-badge {
-            padding: 4px 8px;
-            border-radius: 12px;
+            display: inline-flex;
+            min-width: 126px;
+            justify-content: center;
+            padding: 0.52rem 0.75rem;
             font-size: 0.8rem;
-            font-weight: bold;
+            font-weight: 950;
+            border-radius: 999px;
+            white-space: nowrap;
         }
 
-        .status-new { background-color: #d4edda; color: #155724; }
-        .status-due { background-color: #f8d7da; color: #721c24; }
+        .status-new {
+            color: #064e3b;
+            background: #ccfbf1;
+        }
 
-        /* Footer */
-        footer {
-            background-color: #222;
-            color: var(--white);
+        .status-due {
+            color: #7f1d1d;
+            background: #ffe4e6;
+        }
+
+        .status-priority {
+            color: #713f12;
+            background: #fef3c7;
+        }
+
+        .empty-state {
+            display: none;
+            padding: 2rem;
+            color: var(--muted);
+            font-weight: 800;
             text-align: center;
-            padding: 1.5rem 0;
-            margin-top: 2rem;
+            background: #f8fafc;
+            border: 1px dashed var(--line);
+            border-radius: 20px;
         }
 
-        /* Responsive Design */
-        @media(max-width: 768px) {
-            .container {
+        .features {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 1rem;
+        }
+
+        .feature-card {
+            padding: 1.4rem;
+            background: #fff;
+            border: 1px solid var(--line);
+            border-radius: var(--radius-lg);
+            box-shadow: 0 18px 45px rgba(23, 32, 51, 0.08);
+        }
+
+        .feature-card span {
+            display: grid;
+            width: 48px;
+            height: 48px;
+            place-items: center;
+            margin-bottom: 1rem;
+            font-size: 1.35rem;
+            background: #eff6ff;
+            border-radius: 16px;
+        }
+
+        .feature-card h3 {
+            color: var(--midnight);
+            margin-bottom: 0.4rem;
+        }
+
+        .feature-card p {
+            color: var(--muted);
+        }
+
+        .cta {
+            margin: 0 clamp(1rem, 5vw, 5rem) clamp(2rem, 6vw, 5rem);
+            padding: clamp(1.6rem, 4vw, 3rem);
+            color: #fff;
+            background:
+                radial-gradient(circle at right, rgba(247, 201, 72, 0.28), transparent 24rem),
+                linear-gradient(135deg, var(--midnight), var(--royal));
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow);
+        }
+
+        .cta h2 {
+            max-width: 760px;
+            font-size: clamp(1.8rem, 4vw, 3rem);
+            line-height: 1.05;
+            letter-spacing: -0.05em;
+        }
+
+        .cta p {
+            max-width: 700px;
+            margin: 0.9rem 0 1.35rem;
+            color: #dbeafe;
+        }
+
+        footer {
+            padding: 2rem clamp(1rem, 5vw, 5rem);
+            color: #dbeafe;
+            background: #06142f;
+        }
+
+        .footer-inner {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .footer-inner strong {
+            color: #fff;
+        }
+
+        @media (max-width: 980px) {
+            .hero,
+            .portal-grid {
                 grid-template-columns: 1fr;
             }
-            nav ul {
-                display: none; /* In a real app, replace with a hamburger menu */
+
+            .stats,
+            .features {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
             }
-            header {
+        }
+
+        @media (max-width: 720px) {
+            .topbar {
+                position: relative;
+                align-items: flex-start;
                 flex-direction: column;
-                text-align: center;
+            }
+
+            .nav-links {
+                width: 100%;
+                flex-wrap: wrap;
+            }
+
+            .nav-links a {
+                padding: 0.55rem 0.75rem;
+            }
+
+            .hero {
+                padding-top: 2.4rem;
+            }
+
+            .stats,
+            .features,
+            .filter-controls {
+                grid-template-columns: 1fr;
+            }
+
+            .section-heading,
+            .footer-inner {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .homework-card {
+                grid-template-columns: 1fr;
+            }
+
+            .status-badge {
+                justify-self: start;
             }
         }
     </style>
 </head>
 <body>
+    <div class="site-shell">
+        <header class="topbar">
+            <a class="brand" href="#home" aria-label="Himalaya Public School home">
+                <div class="brand-mark">H</div>
+                <div>
+                    <h1>Himalaya Public School</h1>
+                    <p>Homework & Notice Portal</p>
+                </div>
+            </a>
+            <nav aria-label="Main navigation">
+                <ul class="nav-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#notices">Notices</a></li>
+                    <li><a href="#homework">Homework</a></li>
+                    <li><a href="#support">Support</a></li>
+                </ul>
+            </nav>
+        </header>
 
-    <header>
-        <div class="logo">
-            <h1>Himalaya <span>Public School</span></h1>
-        </div>
-        <nav>
-            <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#notices">Notice Board</a></li>
-                <li><a href="#homework">Homework Portal</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
+        <main>
+            <section class="hero" id="home">
+                <div>
+                    <div class="eyebrow">✨ Student updates made simple</div>
+                    <h2>Premium school portal for <span>homework</span> and notices.</h2>
+                    <p class="hero-copy">Students of Himalaya Public School can quickly check daily homework, urgent school notices, due dates, and class-wise announcements in one polished dashboard.</p>
+                    <div class="hero-actions">
+                        <a class="button button-primary" href="#homework">View Homework →</a>
+                        <a class="button button-secondary" href="#notices">Read Notices</a>
+                    </div>
+                </div>
 
-    <section class="hero" id="home">
-        <h2>Welcome to the Student Portal</h2>
-        <p>Empowering minds, shaping the future. Stay updated with your daily tasks and announcements.</p>
-    </section>
+                <aside class="hero-card" aria-label="Today's highlights">
+                    <div class="spotlight-card">
+                        <div class="spotlight-top">
+                            <p>Today at a glance</p>
+                            <h3>Friday, May 15, 2026</h3>
+                        </div>
+                        <div class="spotlight-list">
+                            <div class="spotlight-item">
+                                <span class="icon-bubble">📌</span>
+                                <div>
+                                    <strong>PTM schedule published</strong>
+                                    <p>Classes VI-X meeting details are now available.</p>
+                                </div>
+                            </div>
+                            <div class="spotlight-item">
+                                <span class="icon-bubble">📚</span>
+                                <div>
+                                    <strong>6 new homework tasks</strong>
+                                    <p>Filter by class, subject, or priority below.</p>
+                                </div>
+                            </div>
+                            <div class="spotlight-item">
+                                <span class="icon-bubble">⏰</span>
+                                <div>
+                                    <strong>Summer timing reminder</strong>
+                                    <p>School begins at 7:30 AM from Monday.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+            </section>
 
-    <div class="container">
-        
-        <!-- Notice Board Section -->
-        <aside class="notice-board" id="notices">
-            <h3 class="section-title">📌 Important Notices</h3>
-            <ul class="notice-list">
-                <li class="notice-item">
-                    <span class="notice-date">May 15, 2026</span>
-                    <a href="#">Upcoming Parent-Teacher Meeting Schedule</a>
-                    <p style="font-size: 0.9rem; margin-top: 5px;">PTM for classes VI to X is scheduled for the upcoming Saturday.</p>
-                </li>
-                <li class="notice-item">
-                    <span class="notice-date">May 12, 2026</span>
-                    <a href="#">Annual Sports Day Registration Open</a>
-                    <p style="font-size: 0.9rem; margin-top: 5px;">Students interested in participating can register with their class teachers.</p>
-                </li>
-                <li class="notice-item">
-                    <span class="notice-date">May 10, 2026</span>
-                    <a href="#">Change in School Timings for Summer</a>
-                    <p style="font-size: 0.9rem; margin-top: 5px;">School will now start at 7:30 AM instead of 8:00 AM.</p>
-                </li>
-            </ul>
-        </aside>
+            <section class="section stats" aria-label="Portal statistics">
+                <div class="stat-card">
+                    <strong>06</strong>
+                    <span>Homework tasks</span>
+                </div>
+                <div class="stat-card">
+                    <strong>04</strong>
+                    <span>Active notices</span>
+                </div>
+                <div class="stat-card">
+                    <strong>24/7</strong>
+                    <span>Portal access</span>
+                </div>
+                <div class="stat-card">
+                    <strong>100%</strong>
+                    <span>Mobile friendly</span>
+                </div>
+            </section>
 
-        <!-- Homework Portal Section -->
-        <main class="homework-portal" id="homework">
-            <h3 class="section-title">📚 Daily Homework</h3>
-            
-            <div class="filter-controls">
-                <select id="class-filter">
-                    <option value="all">Select Class</option>
-                    <option value="9">Class 9</option>
-                    <option value="10">Class 10</option>
-                    <option value="11">Class 11</option>
-                    <option value="12">Class 12</option>
-                </select>
-                <select id="date-filter">
-                    <option value="today">Today</option>
-                    <option value="yesterday">Yesterday</option>
-                </select>
-            </div>
+            <section class="section" id="notices">
+                <div class="section-heading">
+                    <div>
+                        <div class="eyebrow" style="color: var(--royal); background: #eaf4ff; border-color: #cfe6ff;">📢 School notice board</div>
+                        <h2>Important announcements</h2>
+                    </div>
+                    <p>Stay informed about meetings, events, schedule changes, exam updates, and school activities from Himalaya Public School.</p>
+                </div>
 
-            <table>
-                <thead>
-                    <tr>
-                        <th>Subject</th>
-                        <th>Class</th>
-                        <th>Homework Details</th>
-                        <th>Submission Date</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>Mathematics</strong></td>
-                        <td>Class 10</td>
-                        <td>Complete Exercise 4.2 (Quadratic Equations), Q1 to Q5.</td>
-                        <td>May 16, 2026</td>
-                        <td><span class="status-badge status-new">Assigned Today</span></td>
-                    </tr>
-                    <tr>
-                        <td><strong>Science</strong></td>
-                        <td>Class 10</td>
-                        <td>Draw and label the human digestive system. Write a brief note on enzymes.</td>
-                        <td>May 17, 2026</td>
-                        <td><span class="status-badge status-new">Assigned Today</span></td>
-                    </tr>
-                    <tr>
-                        <td><strong>English</strong></td>
-                        <td>Class 9</td>
-                        <td>Write an essay on "The Importance of Discipline in Student Life" (200 words).</td>
-                        <td>May 16, 2026</td>
-                        <td><span class="status-badge status-due">Due Tomorrow</span></td>
-                    </tr>
-                    <tr>
-                        <td><strong>Social Science</strong></td>
-                        <td>Class 11</td>
-                        <td>Read Chapter 3 of History and answer the short questions at the back.</td>
-                        <td>May 18, 2026</td>
-                        <td><span class="status-badge status-new">Assigned Today</span></td>
-                    </tr>
-                </tbody>
-            </table>
+                <div class="portal-grid">
+                    <aside class="panel notice-board">
+                        <div class="panel-title">
+                            <h3>Latest Notices</h3>
+                            <span class="live-pill">Live</span>
+                        </div>
+                        <ul class="notice-list">
+                            <li class="notice-item">
+                                <span class="notice-date">May 15, 2026</span>
+                                <h4>Parent-Teacher Meeting Schedule</h4>
+                                <p>PTM for classes VI to X will be held this Saturday. Students should collect appointment slips from class teachers.</p>
+                            </li>
+                            <li class="notice-item">
+                                <span class="notice-date">May 14, 2026</span>
+                                <h4>Unit Test Preparation Notice</h4>
+                                <p>Revision sheets for Mathematics, Science, English, and Social Science have been shared by subject teachers.</p>
+                            </li>
+                            <li class="notice-item">
+                                <span class="notice-date">May 12, 2026</span>
+                                <h4>Annual Sports Day Registration</h4>
+                                <p>Interested students can register for track, football, chess, and kho-kho events before May 20, 2026.</p>
+                            </li>
+                            <li class="notice-item">
+                                <span class="notice-date">May 10, 2026</span>
+                                <h4>Summer School Timings</h4>
+                                <p>School will start at 7:30 AM and disperse at 1:10 PM from Monday due to summer weather conditions.</p>
+                            </li>
+                        </ul>
+                    </aside>
+
+                    <section class="panel homework-panel" id="homework">
+                        <div class="panel-title">
+                            <h3>Daily Homework</h3>
+                            <span class="live-pill">Updated Today</span>
+                        </div>
+
+                        <div class="filter-controls" aria-label="Homework filters">
+                            <div class="field">
+                                <label for="class-filter">Class</label>
+                                <select id="class-filter">
+                                    <option value="all">All Classes</option>
+                                    <option value="8">Class 8</option>
+                                    <option value="9">Class 9</option>
+                                    <option value="10">Class 10</option>
+                                    <option value="11">Class 11</option>
+                                    <option value="12">Class 12</option>
+                                </select>
+                            </div>
+                            <div class="field">
+                                <label for="subject-filter">Subject</label>
+                                <select id="subject-filter">
+                                    <option value="all">All Subjects</option>
+                                    <option value="Mathematics">Mathematics</option>
+                                    <option value="Science">Science</option>
+                                    <option value="English">English</option>
+                                    <option value="Social Science">Social Science</option>
+                                    <option value="Computer">Computer</option>
+                                </select>
+                            </div>
+                            <div class="field">
+                                <label for="search-filter">Search</label>
+                                <input id="search-filter" type="search" placeholder="Search homework...">
+                            </div>
+                        </div>
+
+                        <div class="homework-list" id="homework-list">
+                            <article class="homework-card" data-class="10" data-subject="Mathematics" data-keywords="quadratic equations exercise 4.2 q1 q5">
+                                <div class="subject-icon">➗</div>
+                                <div>
+                                    <h4>Mathematics</h4>
+                                    <div class="meta">
+                                        <span class="chip">Class 10</span>
+                                        <span class="chip">Due: May 16, 2026</span>
+                                    </div>
+                                    <p>Complete Exercise 4.2 on Quadratic Equations, questions 1 to 5, in the homework notebook.</p>
+                                </div>
+                                <span class="status-badge status-new">Assigned Today</span>
+                            </article>
+
+                            <article class="homework-card" data-class="10" data-subject="Science" data-keywords="human digestive system enzymes diagram label">
+                                <div class="subject-icon">🔬</div>
+                                <div>
+                                    <h4>Science</h4>
+                                    <div class="meta">
+                                        <span class="chip">Class 10</span>
+                                        <span class="chip">Due: May 17, 2026</span>
+                                    </div>
+                                    <p>Draw and label the human digestive system. Add a short note on the role of enzymes.</p>
+                                </div>
+                                <span class="status-badge status-new">Assigned Today</span>
+                            </article>
+
+                            <article class="homework-card" data-class="9" data-subject="English" data-keywords="essay discipline student life 200 words">
+                                <div class="subject-icon">✍️</div>
+                                <div>
+                                    <h4>English</h4>
+                                    <div class="meta">
+                                        <span class="chip">Class 9</span>
+                                        <span class="chip">Due: May 16, 2026</span>
+                                    </div>
+                                    <p>Write a 200-word essay on “The Importance of Discipline in Student Life”.</p>
+                                </div>
+                                <span class="status-badge status-due">Due Tomorrow</span>
+                            </article>
+
+                            <article class="homework-card" data-class="11" data-subject="Social Science" data-keywords="history chapter 3 short questions">
+                                <div class="subject-icon">🌍</div>
+                                <div>
+                                    <h4>Social Science</h4>
+                                    <div class="meta">
+                                        <span class="chip">Class 11</span>
+                                        <span class="chip">Due: May 18, 2026</span>
+                                    </div>
+                                    <p>Read History Chapter 3 and answer all short-answer questions at the end of the chapter.</p>
+                                </div>
+                                <span class="status-badge status-new">Assigned Today</span>
+                            </article>
+
+                            <article class="homework-card" data-class="12" data-subject="Computer" data-keywords="html css responsive homepage project">
+                                <div class="subject-icon">💻</div>
+                                <div>
+                                    <h4>Computer</h4>
+                                    <div class="meta">
+                                        <span class="chip">Class 12</span>
+                                        <span class="chip">Due: May 19, 2026</span>
+                                    </div>
+                                    <p>Create a responsive homepage layout using HTML and CSS. Submit screenshots and source code.</p>
+                                </div>
+                                <span class="status-badge status-priority">Project Work</span>
+                            </article>
+
+                            <article class="homework-card" data-class="8" data-subject="Science" data-keywords="plant cell animal cell differences table">
+                                <div class="subject-icon">🌱</div>
+                                <div>
+                                    <h4>Science</h4>
+                                    <div class="meta">
+                                        <span class="chip">Class 8</span>
+                                        <span class="chip">Due: May 17, 2026</span>
+                                    </div>
+                                    <p>Prepare a neat comparison table showing five differences between plant and animal cells.</p>
+                                </div>
+                                <span class="status-badge status-due">Due Soon</span>
+                            </article>
+                        </div>
+                        <div class="empty-state" id="empty-state">No homework found for this filter. Try another class, subject, or search term.</div>
+                    </section>
+                </div>
+            </section>
+
+            <section class="section" id="support">
+                <div class="section-heading">
+                    <div>
+                        <div class="eyebrow" style="color: var(--royal); background: #eaf4ff; border-color: #cfe6ff;">🏫 Why students love it</div>
+                        <h2>Clear, fast, and professional</h2>
+                    </div>
+                    <p>A premium-looking school page designed for easy homework tracking and notice visibility on phones, tablets, and desktops.</p>
+                </div>
+
+                <div class="features">
+                    <article class="feature-card">
+                        <span>🔎</span>
+                        <h3>Smart filtering</h3>
+                        <p>Students can filter homework by class, subject, or keywords to find tasks instantly.</p>
+                    </article>
+                    <article class="feature-card">
+                        <span>📅</span>
+                        <h3>Due dates first</h3>
+                        <p>Every homework card highlights submission dates and task status for better planning.</p>
+                    </article>
+                    <article class="feature-card">
+                        <span>📱</span>
+                        <h3>Responsive design</h3>
+                        <p>The portal stays polished and readable across all screen sizes.</p>
+                    </article>
+                </div>
+            </section>
+
+            <section class="cta">
+                <h2>Never miss a school update from Himalaya Public School.</h2>
+                <p>Bookmark this page and check it daily for fresh homework assignments, notices, exam reminders, and activity updates.</p>
+                <a class="button button-primary" href="#homework">Check Today's Work</a>
+            </section>
         </main>
 
+        <footer>
+            <div class="footer-inner">
+                <div>
+                    <strong>Himalaya Public School</strong>
+                    <p>Homework & Notice Portal © 2026</p>
+                </div>
+                <p>Email: info@himalayapublicschool.edu · Phone: +91 98765 43210</p>
+            </div>
+        </footer>
     </div>
 
-    <footer id="contact">
-        <p>&copy; 2026 Himalaya Public School. All Rights Reserved.</p>
-        <p>Email: info@himalayapublicschool.edu | Phone: +91 98765 43210</p>
-    </footer>
+    <script>
+        const classFilter = document.querySelector('#class-filter');
+        const subjectFilter = document.querySelector('#subject-filter');
+        const searchFilter = document.querySelector('#search-filter');
+        const cards = [...document.querySelectorAll('.homework-card')];
+        const emptyState = document.querySelector('#empty-state');
 
+        function filterHomework() {
+            const selectedClass = classFilter.value;
+            const selectedSubject = subjectFilter.value;
+            const searchTerm = searchFilter.value.trim().toLowerCase();
+            let visibleCount = 0;
+
+            cards.forEach((card) => {
+                const classMatch = selectedClass === 'all' || card.dataset.class === selectedClass;
+                const subjectMatch = selectedSubject === 'all' || card.dataset.subject === selectedSubject;
+                const cardText = `${card.dataset.subject} ${card.dataset.keywords} ${card.textContent}`.toLowerCase();
+                const searchMatch = !searchTerm || cardText.includes(searchTerm);
+                const shouldShow = classMatch && subjectMatch && searchMatch;
+
+                card.style.display = shouldShow ? 'grid' : 'none';
+                if (shouldShow) visibleCount += 1;
+            });
+
+            emptyState.style.display = visibleCount ? 'none' : 'block';
+        }
+
+        [classFilter, subjectFilter, searchFilter].forEach((control) => {
+            control.addEventListener('input', filterHomework);
+            control.addEventListener('change', filterHomework);
+        });
+    </script>
 </body>
 </html>
